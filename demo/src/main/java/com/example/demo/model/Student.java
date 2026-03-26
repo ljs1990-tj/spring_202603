@@ -4,4 +4,6 @@ public class Student {
 	String stuNo;
 	String stuName;
 	String stuDept;
+	String stuGrade;
+	String stuGender;
 }
