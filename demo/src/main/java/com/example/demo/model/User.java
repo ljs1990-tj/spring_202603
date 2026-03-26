@@ -4,4 +4,5 @@ public class User {
 	String userId;
 	String userName;
 	String pwd;
+	String gender;
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.model.Student;
 import com.example.demo.model.User;
 
 @Mapper
