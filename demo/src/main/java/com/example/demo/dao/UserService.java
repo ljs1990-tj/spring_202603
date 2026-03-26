@@ -34,5 +34,45 @@ public class UserService {
 		return resultMap;
 	}
 	
+	public HashMap<String, Object> addUser(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = userMapper.insertUser(map);
+			if(cnt > 0) {
+				resultMap.put("message", "회원가입 축하!");
+			} else {
+				resultMap.put("message", "회원가입 실패. 다시 시도해주셈.");
+			}
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("message", "서버 에러 발생! \n잠시 후 다시 시도해주세요.");
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	public HashMap<String, Object> checkUser(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			User user = userMapper.selectUser(map);
+			if(user != null) {
+				resultMap.put("message", "이미 사용중인 아이디 입니다.");
+				resultMap.put("result", false);
+			} else {
+				resultMap.put("message", "사용 가능한 아이디 입니다!");
+				resultMap.put("result", true);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("message", "서버 에러.");
+		}
+		return resultMap;
+	}
 	
 }

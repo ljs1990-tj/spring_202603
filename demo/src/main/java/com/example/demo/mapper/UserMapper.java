@@ -9,6 +9,8 @@ import com.example.demo.model.User;
 @Mapper
 public interface UserMapper {
 	public User selectUser(HashMap<String, Object> map);
+	
+	public int insertUser(HashMap<String, Object> map);
 }
 
 

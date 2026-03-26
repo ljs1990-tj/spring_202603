@@ -31,10 +31,30 @@ public class UserController {
 	
 	@RequestMapping(value = "/login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String remove(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String login(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(map);
 		resultMap = userService.login(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String join(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(map);
+		resultMap = userService.addUser(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(map);
+		resultMap = userService.checkUser(map);
 		
 		return new Gson().toJson(resultMap); 
 	}
