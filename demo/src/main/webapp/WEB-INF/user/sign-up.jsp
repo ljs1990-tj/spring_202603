@@ -40,11 +40,11 @@
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnList : function () {
+            fnList: function () {
                 let self = this;
                 let param = {};
                 $.ajax({
-                    url: "http://localhost:8080/",
+                    url: "",
                     dataType: "json",
                     type: "POST",
                     data: param,
