@@ -71,7 +71,7 @@
                     <tr>
                         <th>게시판</th>
                         <td>
-                            <select>
+                            <select v-model="info.kind">
                                 <option value="1">공지사항</option>
                                 <option value="2">자유게시판</option>
                                 <option value="3">문의게시판</option>
@@ -81,18 +81,18 @@
                     <tr>
                         <th>제목</th>
                         <td>
-                            <input class="title">
+                            <input v-model="info.title" class="title">
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea cols="75" rows="10"></textarea>
+                            <textarea v-model="info.contents" cols="75" rows="10"></textarea>
                         </td>
                     </tr>
                 </table> 
                 <div class="btn-area">
-                    <button>글쓰기</button>
+                    <button @click="fnAdd">글쓰기</button>
                     <button>되돌아가기</button>
                 </div>
             </div>
@@ -106,20 +106,29 @@
         data() {
             return {
                 // 변수 - (key : value)
+                info : {
+                    kind : "1",
+                    title : "",
+                    contents : ""
+                }
+                
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnList : function () {
+            fnAdd : function () {
                 let self = this;
-                let param = {};
+                let param = self.info;
                 $.ajax({
-                    url: "http://localhost:8080/",
+                    url: "http://localhost:8080/board/add.dox",
                     dataType: "json",
                     type: "POST",
                     data: param,
                     success: function (data) {
-
+                        alert(data.message);
+                        if(data.result == 'success'){
+                            location.href="/board/list.do";
+                        }
                     }
                 });
             }
