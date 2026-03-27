@@ -12,6 +12,8 @@ public interface StudentMapper {
 	public List<Student> selectStudentList();
 	
 	public int deleteStudent(HashMap<String, Object> map);
+	
+	public Student selectStudent(HashMap<String, Object> map);
 }
 
 

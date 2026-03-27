@@ -37,4 +37,17 @@ public class StudentService {
 		
 		return resultMap;
 	}
+	
+	public HashMap<String, Object> getStudent(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		Student info = studentMapper.selectStudent(map);
+		if(info != null) {
+			resultMap.put("message", "이미 사용중인 학번입니다.");
+			resultMap.put("result", "fail");
+		} else {
+			resultMap.put("message", "사용 가능한 학번입니다.");
+			resultMap.put("result", "success");
+		}
+		return resultMap;
+	}
 }

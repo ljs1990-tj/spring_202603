@@ -7,8 +7,17 @@
 		SELECT *
 		FROM STUDENT
 	</select>
+	
 	<delete id="deleteStudent" parameterType="hashmap">
 		DELETE FROM STUDENT WHERE STU_NO = #{stuNo}
 	</delete>
 	
+	<select id="selectStudent" parameterType="hashmap" resultType="com.example.demo.model.Student">
+		SELECT *
+		FROM STUDENT
+		WHERE STU_NO = #{stuNo}
+	</select>
 </mapper>
+
+
+
