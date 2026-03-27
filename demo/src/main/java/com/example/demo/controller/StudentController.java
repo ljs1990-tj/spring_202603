@@ -24,6 +24,11 @@ public class StudentController {
 		return "/student/stu-list";
 	}
 	
+	@RequestMapping("/stu-add.do") 
+	public String add(Model model) throws Exception{
+		return "/student/stu-add";
+	}
+	
 	@RequestMapping(value = "/stu-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String test(Model model, @RequestParam HashMap<String, Object> map) throws Exception {

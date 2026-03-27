@@ -41,10 +41,16 @@
                     <td>{{item.stuName}}</td>
                     <td>{{item.stuDept}}</td>
                     <td>{{item.stuGrade}}</td>
-                    <td>{{item.stuGender}}</td>
+                    <td>
+                        <span v-if="item.stuGender == 'M'">남자</span>
+                        <span v-else>여자</span>
+                    </td>
                     <td><button @click="fnRemove(item.stuNo)">삭제</button></td>
                 </tr>
             </table>
+        </div>
+        <div>
+            <button @click="fnAdd">학생추가</button>
         </div>
     </div>
 </body>
@@ -90,6 +96,9 @@
                         self.fnGetList();
                     }
                 });
+            },
+            fnAdd : function() {
+                location.href="stu-add.do";
             }
         }, // methods
         mounted() {
