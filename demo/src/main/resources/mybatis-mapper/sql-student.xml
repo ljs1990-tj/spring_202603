@@ -7,7 +7,10 @@
 		SELECT *
 		FROM STUDENT
 		WHERE (STU_NO LIKE CONCAT('%', #{keyword}, '%') OR STU_NAME LIKE CONCAT('%', #{keyword}, '%'))
-			  AND STU_DEPT = #{dept}
+		<if test="dept != '' and dept != null">
+			AND STU_DEPT = #{dept}
+		</if>
+			  
 	</select>
 	
 	<delete id="deleteStudent" parameterType="hashmap">
