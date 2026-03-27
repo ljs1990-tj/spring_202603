@@ -23,9 +23,14 @@ public class BoardController {
 		return "/board/board-list";
 	}
 	
+	@RequestMapping("/board/add.do") 
+	public String add(Model model) throws Exception{
+		return "/board/board-add";
+	}
+	
 	@RequestMapping(value = "/board/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String add(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String list(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(map);
 		resultMap = boardService.getBoardList(map);
