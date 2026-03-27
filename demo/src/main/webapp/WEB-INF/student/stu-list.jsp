@@ -27,6 +27,17 @@
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
         <div>
+            <div>
+                검색어 : <input v-model="keyword">
+                <button @click="fnGetList">검색</button>
+                <select v-model="dept" @change="fnGetList">
+                    <option value="">:: 전체 ::</option>
+                    <option value="기계">기계</option>
+                    <option value="전기전자">전기전자</option>
+                    <option value="컴퓨터정보">컴퓨터정보</option>
+                </select>
+            </div>
+
             <table>
                 <tr>
                     <th>학번</th>
@@ -61,14 +72,19 @@
         data() {
             return {
                 // 변수 - (key : value)
-                list : []
+                list : [],
+                keyword : "",
+                dept : ""
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
             fnGetList: function () {
                 let self = this;
-                let param = {};
+                let param = {
+                    keyword : self.keyword,
+                    dept : self.dept
+                };
                 $.ajax({
                     url: "http://localhost:8080/stu-list.dox",
                     dataType: "json",

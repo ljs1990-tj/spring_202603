@@ -14,9 +14,9 @@ public class StudentService {
 	@Autowired 
 	StudentMapper studentMapper;
 	
-	public HashMap<String, Object> getStudentList(){
+	public HashMap<String, Object> getStudentList(HashMap<String, Object> map){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Student> list = studentMapper.selectStudentList();
+		List<Student> list = studentMapper.selectStudentList(map);
 		
 		resultMap.put("list", list);
 		resultMap.put("message", "데이터 조회 성공");
@@ -48,6 +48,22 @@ public class StudentService {
 			resultMap.put("message", "사용 가능한 학번입니다.");
 			resultMap.put("result", "success");
 		}
+		return resultMap;
+	}
+	
+	public HashMap<String, Object> addStudent(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			int cnt = studentMapper.insertStudent(map);
+			resultMap.put("message", "추가되었습니다!");
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("message", "서버 에러 발생!");
+			resultMap.put("result", "fail");
+		}
+		
 		return resultMap;
 	}
 }

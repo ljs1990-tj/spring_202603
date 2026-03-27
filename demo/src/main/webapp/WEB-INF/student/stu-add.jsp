@@ -91,6 +91,10 @@
             },
             fnAdd : function () {
                 let self = this;
+                if(self.info.stuNo.length != 8){
+                    alert("학번은 8글자!");
+                    return;
+                }
                 let param = self.info;
                 $.ajax({
                     url: "http://localhost:8080/stu-add.dox",
