@@ -30,12 +30,12 @@
         <div id="container">
             <div class="search-area">
                 <label>학년 : 
-                    <select>
-                        <option>:: 전체 ::</option>
-                        <option>1학년</option>
-                        <option>2학년</option>
-                        <option>3학년</option>
-                        <option>4학년</option>
+                    <select v-model="grade" @change="fnGetList">
+                        <option value="">:: 전체 ::</option>
+                        <option value="1">1학년</option>
+                        <option value="2">2학년</option>
+                        <option value="3">3학년</option>
+                        <option value="4">4학년</option>
                     </select>
                 </label>
             </div>
@@ -69,14 +69,17 @@
         data() {
             return {
                 // 변수 - (key : value)
-                list : []
+                list : [],
+                grade : ""
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
             fnGetList : function () {
                 let self = this;
-                let param = {};
+                let param = {
+                    grade : self.grade
+                };
                 $.ajax({
                     url: "http://localhost:8080/stu/list.dox",
                     dataType: "json",

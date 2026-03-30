@@ -26,6 +26,11 @@
 		LEFT JOIN PROFESSOR P ON S.PROFNO = P.PROFNO
 		INNER JOIN DEPARTMENT D1 ON S.DEPTNO1 = D1.DEPTNO
 		INNER JOIN DEPARTMENT D2 ON D1.PART = D2.DEPTNO
+		WHERE 1=1 
+		<if test="grade != '' and grade != null">
+			AND S.GRADE = #{grade}
+		</if>
+		
 	</select>
 
 </mapper>
