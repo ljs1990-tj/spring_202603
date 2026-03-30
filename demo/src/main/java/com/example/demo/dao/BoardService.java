@@ -45,6 +45,39 @@ public class BoardService {
 		return resultMap;
 	}
 	
+	public HashMap<String, Object> getBoard(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			if(map.get("kind").equals("view")) {
+				boardMapper.updateCnt(map);
+			}
+			Board info = boardMapper.selectBoard(map);
+			resultMap.put("info", info);
+			resultMap.put("message", "데이터 조회 성공");
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("message", "서버 에러!");
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	
+	public HashMap<String, Object> editBoard(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			boardMapper.updateBoard(map);
+			resultMap.put("message", "수정되었습니다!");
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("message", "서버 에러!");
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 }
 
 

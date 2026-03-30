@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dao.BoardService;
 import com.google.gson.Gson;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class BoardController {
 	@Autowired
@@ -26,6 +28,20 @@ public class BoardController {
 	@RequestMapping("/board/add.do") 
 	public String add(Model model) throws Exception{
 		return "/board/board-add";
+	}
+	
+	@RequestMapping("/board/view.do") 
+	public String view(HttpServletRequest request, @RequestParam HashMap<String, Object> map) throws Exception{
+		System.out.println(map);
+		request.setAttribute("boardNo", map.get("boardNo"));
+		return "/board/board-view";
+	}
+	
+	@RequestMapping("/board/edit.do") 
+	public String edit(HttpServletRequest request, @RequestParam HashMap<String, Object> map) throws Exception{
+		System.out.println(map);
+		request.setAttribute("boardNo", map.get("boardNo"));
+		return "/board/board-edit";
 	}
 	
 	@RequestMapping(value = "/board/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -44,6 +60,26 @@ public class BoardController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(map);
 		resultMap = boardService.addBoard(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/board/info.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String info(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(map);
+		resultMap = boardService.getBoard(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/board/edit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String edit(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(map);
+		resultMap = boardService.editBoard(map);
 		
 		return new Gson().toJson(resultMap); 
 	}
