@@ -1,0 +1,37 @@
+package com.example.demo.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.common.Message;
+import com.example.demo.mapper.SchoolMapper;
+import com.example.demo.model.Professor;
+
+@Service
+public class SchoolService {
+	@Autowired
+	SchoolMapper schoolMapper;
+	
+	public HashMap<String, Object> getProfList(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Professor> list = schoolMapper.selectProfList(map);
+			
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+			resultMap.put("message", Message.MSG_SEARCH);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.MSG_SERVER_ERR);
+		}
+		return resultMap;
+	}
+}
+
+
+
