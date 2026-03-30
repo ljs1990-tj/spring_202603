@@ -16,7 +16,7 @@
 	</insert>
 	
 	<!-- 삭제 -->
-	<delete id="deletetUser" parameterType="hashmap">
+	<delete id="deleteUser" parameterType="hashmap">
 	</delete>
 	
 	<!-- 수정 -->

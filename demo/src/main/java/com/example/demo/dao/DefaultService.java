@@ -28,11 +28,11 @@ public class DefaultService {
 	public HashMap<String, Object> getItem(HashMap<String, Object> map){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-//			List<User> list = defaultMapper.selectUserList(HashMap<String, Object> map);
-//			User info = defaultMapper.selectUser(HashMap<String, Object> map);
-//			int result = defaultMapper.updateXXX(HashMap<String, Object> map);
+//			List<User> list = defaultMapper.selectUserList(map);
+//			User info = defaultMapper.selectUser(map);
+//			int result = defaultMapper.updateXXX(map);
 			
-//			resultMap.put("list", "list");
+//			resultMap.put("list", list);
 			resultMap.put("result", "success");
 			resultMap.put("message", Message.MSG_ADD);
 		} catch (Exception e) {
