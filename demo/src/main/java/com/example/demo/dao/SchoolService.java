@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.common.Message;
 import com.example.demo.mapper.SchoolMapper;
 import com.example.demo.model.Professor;
+import com.example.demo.model.Student;
 
 @Service
 public class SchoolService {
@@ -19,6 +20,23 @@ public class SchoolService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<Professor> list = schoolMapper.selectProfList(map);
+			
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+			resultMap.put("message", Message.MSG_SEARCH);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.MSG_SERVER_ERR);
+		}
+		return resultMap;
+	}
+	
+	public HashMap<String, Object> getStuList(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Student> list = schoolMapper.selectStuList(map);
 			
 			resultMap.put("list", list);
 			resultMap.put("result", "success");

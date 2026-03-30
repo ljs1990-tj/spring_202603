@@ -27,7 +27,39 @@
 <body>
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
-         
+        <div id="container">
+            <div class="search-area">
+                <label>학년 : 
+                    <select>
+                        <option>:: 전체 ::</option>
+                        <option>1학년</option>
+                        <option>2학년</option>
+                        <option>3학년</option>
+                        <option>4학년</option>
+                    </select>
+                </label>
+            </div>
+            <div class="table-area">
+                <table>
+                    <tr>
+                        <th>학번</th>
+                        <th>이름</th>
+                        <th>학부</th>
+                        <th>학과</th>
+                        <th>학년</th>
+                        <th>담당교수</th>
+                    </tr>
+                    <tr v-for="item in list">
+                        <td>{{item.stuNo}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.dName2}}</td>
+                        <td>{{item.dName3}}</td>
+                        <td>{{item.grade}}</td>
+                        <td>{{item.profName}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div> 
     </div>
 </body>
 </html>
@@ -37,20 +69,22 @@
         data() {
             return {
                 // 변수 - (key : value)
+                list : []
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnList : function () {
+            fnGetList : function () {
                 let self = this;
                 let param = {};
                 $.ajax({
-                    url: "http://localhost:8080/",
+                    url: "http://localhost:8080/stu/list.dox",
                     dataType: "json",
                     type: "POST",
                     data: param,
                     success: function (data) {
-
+                        console.log(data);
+                        self.list = data.list;
                     }
                 });
             }
@@ -58,6 +92,7 @@
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            self.fnGetList();
         }
     });
 
