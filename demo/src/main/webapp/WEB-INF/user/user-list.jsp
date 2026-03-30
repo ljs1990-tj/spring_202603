@@ -30,12 +30,14 @@
         <!-- user-list.jsp -->
         <table>
             <tr>
+                <th>선택</th>
                 <th>아이디</th>
                 <th>이름</th>
                 <th>성별</th>
                 <th>삭제</th>
             </tr>
             <tr v-for="item in list">
+                <td><input type="radio" name="user" v-model="selectUserId" :value="item.userId"></td>
                 <td>{{item.userId}}</td>
                 <td>{{item.userName}}</td>
                 <td>
@@ -46,9 +48,10 @@
                 <td>
                     <button @click="fnRemove(item.userId)">삭제</button>
                 </td>
+                
             </tr>
         </table>
-
+        <button @click="fnDelete()">삭제</button>
     </div>
 </body>
 </html>
@@ -58,7 +61,8 @@
         data() {
             return {
                 // 변수 - (key : value)
-                list : []
+                list : [],
+                selectUserId : ""
             };
         },
         methods: {
@@ -84,6 +88,25 @@
                 }
                 let param = {
                     userId : userId
+                };
+                $.ajax({
+                    url: "http://localhost:8080/user/remove.dox",
+                    dataType: "json",
+                    type: "POST",
+                    data: param,
+                    success: function (data) {
+                        alert(data.message);
+                        self.fnGetList();
+                    }
+                });
+            },
+            fnDelete : function () {
+                let self = this;
+                if(!confirm("삭제 할래?")){
+                    return;
+                }
+                let param = {
+                    userId : self.selectUserId
                 };
                 $.ajax({
                     url: "http://localhost:8080/user/remove.dox",
