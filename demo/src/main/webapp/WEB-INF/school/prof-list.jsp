@@ -27,7 +27,29 @@
 <body>
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
-         
+        <div id="container">
+            <div class="table-area">
+                <table>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>포지션</th>
+                        <th>급여</th>
+                        <th>학부</th>
+                        <th>학과</th>
+                    </tr>
+                    <tr v-for="item in list">
+                        <td>{{item.profNo}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.position}}</td>
+                        <td>{{item.pay}}</td>
+                        <td>{{item.dName2}}</td>
+                        <td>{{item.dName3}}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
     </div>
 </body>
 </html>
@@ -37,6 +59,7 @@
         data() {
             return {
                 // 변수 - (key : value)
+                list : []
             };
         },
         methods: {
@@ -51,6 +74,7 @@
                     data: param,
                     success: function (data) {
                         console.log(data);
+                        self.list = data.list;
                     }
                 });
             }
