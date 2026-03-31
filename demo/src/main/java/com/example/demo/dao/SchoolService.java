@@ -127,6 +127,38 @@ public class SchoolService {
 		return resultMap;
 	}
 	
+	public HashMap<String, Object> removeStu(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			int result = schoolMapper.deleteStu(map);
+			
+			resultMap.put("result", "success");
+			resultMap.put("message", Message.MSG_REMOVE);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.MSG_SERVER_ERR);
+		}
+		return resultMap;
+	}
+	
+	public HashMap<String, Object> removeProf(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			int result = schoolMapper.deleteProf(map);
+			
+			resultMap.put("result", "success");
+			resultMap.put("message", Message.MSG_REMOVE);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.MSG_SERVER_ERR);
+		}
+		return resultMap;
+	}
+	
 }
 
 
