@@ -21,8 +21,10 @@ public class SchoolService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<Professor> list = schoolMapper.selectProfList(map);
+			List<Dept> deptList = schoolMapper.selectDeptList(map);
 			
 			resultMap.put("list", list);
+			resultMap.put("deptList", deptList);
 			resultMap.put("result", "success");
 			resultMap.put("message", Message.MSG_SEARCH);
 		} catch (Exception e) {

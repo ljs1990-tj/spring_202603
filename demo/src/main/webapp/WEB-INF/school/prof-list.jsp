@@ -28,6 +28,22 @@
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
         <div id="container">
+            <div class="search-area">
+                직급 : 
+                <select v-model="position" @change="fnGetList">
+                    <option value="">:: 전체 ::</option>
+                    <option value="정교수">정교수</option>
+                    <option value="조교수">조교수</option>
+                    <option value="전임강사">전임강사</option>
+                </select>
+                <label>
+                    학과 : 
+                    <select v-model="deptNo" @change="fnGetList">
+                        <option value="">:: 전체 ::</option>
+                        <option v-for="item in deptList" :value="item.deptNo">{{item.dName}}</option>
+                    </select>
+                </label>
+            </div>
             <div class="table-area">
                 <table>
                     <tr>
@@ -59,14 +75,20 @@
         data() {
             return {
                 // 변수 - (key : value)
-                list : []
+                list : [],
+                deptList : [],
+                position : "",
+                deptNo : ""
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
             fnGetList : function () {
                 let self = this;
-                let param = {};
+                let param = {
+                    position : self.position,
+                    deptNo : self.deptNo
+                };
                 $.ajax({
                     url: "http://localhost:8080/prof/list.dox",
                     dataType: "json",
@@ -75,6 +97,7 @@
                     success: function (data) {
                         console.log(data);
                         self.list = data.list;
+                        self.deptList = data.deptList;
                     }
                 });
             }
