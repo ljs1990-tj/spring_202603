@@ -48,4 +48,12 @@
 		WHERE BUILD IS NOT NULL
 	</select>
 
+	<insert id="insertStu" parameterType="hashmap">
+		INSERT INTO STU(STUNO, NAME, GRADE, DEPTNO1, PROFNO)
+		VALUES(#{stuNo}, #{stuName}, #{grade}, #{deptNo}, #{profNo})
+	</insert>
 </mapper>
+
+
+
+

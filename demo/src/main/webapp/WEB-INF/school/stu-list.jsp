@@ -66,6 +66,9 @@
                     </tr>
                 </table>
             </div>
+            <div class="btn-area">
+                <a href="/stu/add.do"><button>학생추가</button></a>
+            </div>
         </div> 
     </div>
 </body>
