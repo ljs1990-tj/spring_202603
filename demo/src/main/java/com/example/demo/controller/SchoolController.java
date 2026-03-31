@@ -84,6 +84,15 @@ public class SchoolController {
 
 		return new Gson().toJson(resultMap); 
 	}
+	
+	@RequestMapping(value = "/stu/check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = schoolService.getStu(map);
+
+		return new Gson().toJson(resultMap); 
+	}
 }
 
 

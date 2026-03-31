@@ -28,7 +28,7 @@
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
         <div>
-            <label>학번 : <input v-model="stuNo"></label>
+            <label>학번 : <input v-model="stuNo" maxlength="4" @input="fnStuNoInput"></label>
         </div> 
         <div>
             <label>이름 : <input v-model="stuName"></label>
@@ -134,6 +134,27 @@
                         }
                     }
                 });
+            },
+            fnStuNoInput : function(){
+                let self = this;
+                self.stuNo = self.stuNo.replace(/[^0-9]/g, '');
+                if(self.stuNo.length != 4){
+                    return;
+                }
+
+                let param = {
+                    stuNo : self.stuNo
+                };
+                $.ajax({
+                    url: "http://localhost:8080/stu/check.dox",
+                    dataType: "json",
+                    type: "POST",
+                    data: param,
+                    success: function (data) {
+                        console.log(data.message);
+                    }
+                });
+
             }
         }, // methods
         mounted() {

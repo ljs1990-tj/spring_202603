@@ -106,6 +106,27 @@ public class SchoolService {
 		return resultMap;
 	}
 	
+	public HashMap<String, Object> getStu(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			Student info = schoolMapper.selectStu(map);
+			if(info != null) {
+				resultMap.put("stuFlg", false);
+				resultMap.put("message", "이미 사용중인 학번입니다.");
+			} else {
+				resultMap.put("stuFlg", true);
+				resultMap.put("message", "사용 가능한 학번 입니다.");
+			}
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.MSG_SERVER_ERR);
+		}
+		return resultMap;
+	}
+	
 }
 
 
