@@ -30,7 +30,15 @@
 		<if test="grade != '' and grade != null">
 			AND S.GRADE = #{grade}
 		</if>
-		
+		<if test="deptNo != '' and deptNo != null">
+			AND S.DEPTNO1 = #{deptNo}
+		</if>
+	</select>
+	
+	<select id="selectDeptList" parameterType="hashmap" resultType="com.example.demo.model.Dept">
+		SELECT * 
+		FROM DEPARTMENT
+		WHERE BUILD IS NOT NULL
 	</select>
 
 </mapper>

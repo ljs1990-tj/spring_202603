@@ -38,6 +38,13 @@
                         <option value="4">4학년</option>
                     </select>
                 </label>
+                <label>
+                    학과 : 
+                    <select v-model="deptNo" @change="fnGetList">
+                        <option value="">:: 전체 ::</option>
+                        <option v-for="item in deptList" :value="item.deptNo">{{item.dName}}</option>
+                    </select>
+                </label>
             </div>
             <div class="table-area">
                 <table>
@@ -70,7 +77,9 @@
             return {
                 // 변수 - (key : value)
                 list : [],
-                grade : ""
+                deptList : [],
+                grade : "",
+                deptNo : ""
             };
         },
         methods: {
@@ -78,7 +87,8 @@
             fnGetList : function () {
                 let self = this;
                 let param = {
-                    grade : self.grade
+                    grade : self.grade,
+                    deptNo : self.deptNo
                 };
                 $.ajax({
                     url: "http://localhost:8080/stu/list.dox",
@@ -88,6 +98,22 @@
                     success: function (data) {
                         console.log(data);
                         self.list = data.list;
+                        self.deptList = data.deptList;
+                    }
+                });
+            },
+
+            fnGetDeptList : function () {
+                let self = this;
+                let param = {};
+                $.ajax({
+                    url: "http://localhost:8080/dept/list.dox",
+                    dataType: "json",
+                    type: "POST",
+                    data: param,
+                    success: function (data) {
+                        console.log(data);
+                        self.deptList = data.list;
                     }
                 });
             }
@@ -95,6 +121,7 @@
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            // self.fnGetDeptList();
             self.fnGetList();
         }
     });

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.model.Dept;
 import com.example.demo.model.Professor;
 import com.example.demo.model.Student;
 
@@ -14,6 +15,9 @@ public interface SchoolMapper {
 	public List<Professor> selectProfList(HashMap<String, Object> map);
 	// 학생 목록
 	public List<Student> selectStuList(HashMap<String, Object> map);
+	
+	//학과 목록
+	public List<Dept> selectDeptList(HashMap<String, Object> map);
 }
 
 
