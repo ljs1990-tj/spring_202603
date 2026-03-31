@@ -56,7 +56,9 @@
                 담당교수 : 
                 <select v-model="profNo">
                     <option value="">담당교수없음</option>
-                    <option v-for="item in profList" :value="item.profNo">{{item.name}}({{item.dName3}})</option>
+                    <template v-for="item in profList">
+                        <option v-if="deptNo == item.deptNo" :value="item.profNo">{{item.name}}({{item.dName3}})</option>
+                    </template>
                 </select>
             </label>
         </div>

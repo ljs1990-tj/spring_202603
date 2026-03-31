@@ -89,6 +89,23 @@ public class SchoolService {
 		return resultMap;
 	}
 	
+	public HashMap<String, Object> addProf(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			int result = schoolMapper.insertProf(map);
+
+			resultMap.put("result", "success");
+			resultMap.put("message", Message.MSG_ADD);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.MSG_SERVER_ERR);
+		}
+		return resultMap;
+	}
+	
 }
 
 

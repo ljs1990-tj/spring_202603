@@ -35,6 +35,11 @@ public class SchoolController {
 		return "/school/stu-add"; 
 	}
 	
+	@RequestMapping("/prof/add.do") 
+	public String profAdd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		return "/school/prof-add"; 
+	}
+	
 	@RequestMapping(value = "/prof/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String copy(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -67,6 +72,15 @@ public class SchoolController {
 	public String add(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = schoolService.addStu(map);
+
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/prof/add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String profAdd(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = schoolService.addProf(map);
 
 		return new Gson().toJson(resultMap); 
 	}

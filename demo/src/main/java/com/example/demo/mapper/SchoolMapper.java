@@ -22,6 +22,8 @@ public interface SchoolMapper {
 	// 학생 추가
 	public int insertStu(HashMap<String, Object> map);
 	
+	// 교수 추가
+	public int insertProf(HashMap<String, Object> map);
 }
 
 
