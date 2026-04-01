@@ -40,6 +40,20 @@ public class SchoolController {
 		return "/school/prof-add"; 
 	}
 	
+	@RequestMapping("/stu/view.do") 
+	public String view(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		System.out.println(map);
+		request.setAttribute("map", map);
+		return "/school/stu-view"; 
+	}
+	
+	@RequestMapping("/prof/view.do") 
+	public String profView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		System.out.println(map);
+		request.setAttribute("map", map);
+		return "/school/prof-view"; 
+	}
+	
 	@RequestMapping(value = "/prof/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String copy(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -108,6 +122,24 @@ public class SchoolController {
 	public String profRemove(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = schoolService.removeProf(map);
+
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/stu/info.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String info(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = schoolService.getStuInfo(map);
+
+		return new Gson().toJson(resultMap); 
+	}
+	
+	@RequestMapping(value = "/prof/info.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String profInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = schoolService.getProfInfo(map);
 
 		return new Gson().toJson(resultMap); 
 	}

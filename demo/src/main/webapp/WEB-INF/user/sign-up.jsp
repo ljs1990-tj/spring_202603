@@ -86,8 +86,9 @@
                 phoneFlg : false,
                 ranFlg : false, // 인증번호 정상 입력 시 true
 
-                count : 180,
-                timer : ""
+                count : 20,
+                timer : "",
+                intervalId : null
             };
         },
         methods: {
@@ -147,7 +148,7 @@
                             alert("문자가 전송되었습니다.");
                             self.phoneFlg = true;
                             self.ranStr = data.ranStr;
-                            setInterval(self.fnTimer, 1000);
+                            self.intervalId = setInterval(self.fnTimer, 1000);
                         } else {
                             alert("에러가 발생했습니다.");
                         }
@@ -156,6 +157,14 @@
             },
             fnTimer : function(){
                 let self = this;
+
+                if(self.count <= 0){
+                    alert("시간초과!");
+                    clearInterval(self.intervalId);
+                    self.timer = "시간초과";
+                    return;
+                }
+
                 let min = "";
                 let sec = "";
                 min = parseInt(self.count / 60);
