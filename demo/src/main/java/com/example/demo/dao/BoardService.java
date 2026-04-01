@@ -35,6 +35,8 @@ public class BoardService {
 		try {
 			boardMapper.insertBoard(map);
 			System.out.println("insert된 key값 : " + map.get("boardNo"));
+			
+			resultMap.put("boardNo", map.get("boardNo"));
 			resultMap.put("message", "등록되었습니다!");
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -68,6 +70,9 @@ public class BoardService {
 				boardMapper.updateCnt(map);
 			}
 			Board info = boardMapper.selectBoard(map);
+			List<Board> fileList = boardMapper.selectBoardFile(map);
+			 
+			resultMap.put("fileList", fileList);
 			resultMap.put("info", info);
 			resultMap.put("message", "데이터 조회 성공");
 			resultMap.put("result", "success");

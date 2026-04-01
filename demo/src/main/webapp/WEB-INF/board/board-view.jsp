@@ -33,6 +33,9 @@
         <div>
             조회수 : {{info.cnt}}
         </div> 
+        <div v-for="item in fileList">
+            <img :src="item.filePath">
+        </div>
         <div>
             내용 : {{info.contents}}
         </div> 
@@ -52,7 +55,8 @@
             return {
                 // 변수 - (key : value)
                 boardNo : "${boardNo}",
-                info : {}
+                info : {},
+                fileList : []
             };
         },
         methods: {
@@ -69,7 +73,9 @@
                     type: "POST",
                     data: param,
                     success: function (data) {
+                        console.log(data);
                         self.info = data.info;
+                        self.fileList = data.fileList;
                     }
                 });
             },

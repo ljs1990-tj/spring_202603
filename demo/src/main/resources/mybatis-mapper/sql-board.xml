@@ -26,6 +26,12 @@
 		FROM TBL_BOARD
 		WHERE BOARDNO = #{boardNo}
 	</select>
+	<select id="selectBoardFile" parameterType="hashmap" resultType="com.example.demo.model.Board">
+		SELECT *
+		FROM TBL_BOARD_FILE
+		WHERE BOARDNO = #{boardNo}
+	</select>
+	
 	<update id="updateCnt" parameterType="hashmap">
 		UPDATE TBL_BOARD
 		SET
