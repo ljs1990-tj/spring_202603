@@ -63,7 +63,7 @@
             </label>
         </div>
         <div>
-            <button @click="">수정</button>
+            <button @click="fnStuEdit">수정</button>
         </div>
     </div>
 </body>
@@ -129,6 +129,23 @@
                     success: function (data) {
                         console.log(data);
                         self.profList = data.list;
+                    }
+                });
+            },
+            fnStuEdit : function(){
+                let self = this;
+                let param = self.info;
+                $.ajax({
+                    url: "http://localhost:8080/stu/edit.dox",
+                    dataType: "json",
+                    type: "POST",
+                    data: param,
+                    success: function (data) {
+                        console.log(data);
+                        alert(data.message);
+                        if(data.result == 'success'){
+                            location.href = "/stu/list.do";
+                        }
                     }
                 });
             }

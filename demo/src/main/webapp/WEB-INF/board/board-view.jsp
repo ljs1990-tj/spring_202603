@@ -36,6 +36,9 @@
         <div>
             내용 : {{info.contents}}
         </div> 
+         <div>
+            내용(html태그적용) :  <div v-html="info.contents"></div>
+        </div> 
         <div>
             <button @click="fnEdit">수정</button>
         </div>
