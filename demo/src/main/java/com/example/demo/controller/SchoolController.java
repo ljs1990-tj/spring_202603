@@ -47,6 +47,13 @@ public class SchoolController {
 		return "/school/stu-view"; 
 	}
 	
+	@RequestMapping("/stu/edit.do") 
+	public String edit(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		System.out.println(map);
+		request.setAttribute("map", map);
+		return "/school/stu-edit"; 
+	}
+	
 	@RequestMapping("/prof/view.do") 
 	public String profView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 		System.out.println(map);
