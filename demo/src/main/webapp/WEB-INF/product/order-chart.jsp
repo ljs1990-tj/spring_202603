@@ -47,13 +47,13 @@
                 return {
                     // 변수 - (key : value)
                     chart: null,
-                    priceList : [],
-                    nameList : []
+                    priceList: [],
+                    nameList: []
                 };
             },
             methods: {
                 // 함수(메소드) - (key : function())
-                fnGetList : function(){
+                fnGetList: function () {
                     let self = this;
                     let param = {};
                     $.ajax({
@@ -63,51 +63,36 @@
                         data: param,
                         success: function (data) {
                             console.log(data);
-                            for(let i=0; i<data.list.length; i++){
+                            for (let i = 0; i < data.list.length; i++) {
                                 self.priceList.push(data.list[i].sumPrice);
                                 self.nameList.push(data.list[i].productName);
                             }
                             self.fnChart();
                         }
                     });
-                }, 
+                },
                 fnChart: function () {
                     let self = this;
                     var options = {
                         series: [{
-                            name: "매출액",
+                            name: "sales",
                             data: self.priceList
                         }],
                         chart: {
-                            height: 350,
-                            type: 'line',
-                            zoom: {
-                                enabled: false
-                            }
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        stroke: {
-                            curve: 'straight'
-                        },
-                        title: {
-                            text: 'Product Trends by Month',
-                            align: 'left'
-                        },
-                        grid: {
-                            row: {
-                                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                                opacity: 0.5
-                            },
+                            type: 'bar',
+                            height: 380
                         },
                         xaxis: {
-                            categories: self.nameList,
-                        }
+                            categories: self.nameList
+                        },
+                        title: {
+                            text: '제품별 매출액',
+                        },
+                        
                     };
 
-                    self.chart = new ApexCharts(document.querySelector("#chart"), options);
-                    self.chart.render();
+                    var chart = new ApexCharts(document.querySelector("#chart"), options);
+                    chart.render();
                 }
             }, // methods
             mounted() {

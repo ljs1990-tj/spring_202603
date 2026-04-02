@@ -78,6 +78,14 @@
 		WHERE STUNO = #{stuNo}
 	</delete>
 	
+	<delete id="deleteAllStu" parameterType="hashmap">
+		DELETE FROM STU
+		WHERE STUNO IN 
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach> 
+	</delete>
+	
 	<delete id="deleteProf" parameterType="hashmap">
 		DELETE FROM PROFESSOR
 		WHERE PROFNO = #{profNo}
