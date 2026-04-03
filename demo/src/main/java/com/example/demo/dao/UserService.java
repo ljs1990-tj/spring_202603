@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.Message;
@@ -21,6 +22,9 @@ public class UserService {
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	public HashMap<String, Object> login(HashMap<String, Object> map){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
@@ -28,7 +32,8 @@ public class UserService {
 		resultMap.put("loginResult", false);
 		if(user != null) {
 //			ooo님 환영합니다!
-			if(user.getPwd().equals(map.get("pwd"))) {
+			
+			if(passwordEncoder.matches((String) map.get("pwd"), user.getPwd())) {
 				resultMap.put("message", user.getUserName() + "님 환영합니다.");
 				resultMap.put("loginResult", true);
 				session.setAttribute("sessionId", user.getUserId());
@@ -59,6 +64,8 @@ public class UserService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
+			String hashPwd = passwordEncoder.encode((String) map.get("pwd"));
+			map.put("hashPwd", hashPwd);
 			int cnt = userMapper.insertUser(map);
 			if(cnt > 0) {
 				resultMap.put("message", "회원가입 축하!");

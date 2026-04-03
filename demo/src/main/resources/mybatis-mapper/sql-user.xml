@@ -16,7 +16,7 @@
 	
 	<insert id="insertUser" parameterType="hashmap">
 		INSERT INTO TBL_USER(USERID, PWD, USERNAME)
-		VALUES(#{userId}, #{pwd}, #{userName})
+		VALUES(#{userId}, #{hashPwd}, #{userName})
 	</insert>
 	
 	<delete id="deleteUser" parameterType="hashmap">

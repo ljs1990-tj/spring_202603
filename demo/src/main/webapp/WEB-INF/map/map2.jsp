@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/js/page-change.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e03846a5bae385cef3b2da33124bd8d"></script>
     <style>
         table, tr, td, th{
             border : 1px solid black;
@@ -27,7 +28,7 @@
 <body>
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
-        
+        <div id="map" style="width:500px;height:400px;"></div>
     </div>
 </body>
 </html>
@@ -41,23 +42,20 @@
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnList : function () {
-                let self = this;
-                let param = {};
-                $.ajax({
-                    url: "http://localhost:8080/",
-                    dataType: "json",
-                    type: "POST",
-                    data: param,
-                    success: function (data) {
+            fnMapInit : function () {
+                var container = document.getElementById('map');
+                var options = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667),
+                    level: 3
+                };
 
-                    }
-                });
+                var map = new kakao.maps.Map(container, options);
             }
         }, // methods
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            self.fnMapInit();
         }
     });
 
