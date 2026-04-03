@@ -47,10 +47,10 @@
                 </label>
             </div>
             <div class="order-area">
-                <label><input type="radio" name="order"> 이름순</label>
-                <label><input type="radio" name="order"> 학과순</label>
-                <label><input type="radio" name="order"> 학년순</label>
-                <button>조회</button>
+                <label><input type="radio" name="order" value="name" v-model="orderItem"> 이름순</label>
+                <label><input type="radio" name="order" value="dept" v-model="orderItem"> 학과순</label>
+                <label><input type="radio" name="order" value="grade" v-model="orderItem"> 학년순</label>
+                <button @click="fnGetList">조회</button>
             </div>
             <div class="table-area">
                 <table>
@@ -96,7 +96,8 @@
                 deptList : [],
                 selectList : [],
                 grade : "",
-                deptNo : ""
+                deptNo : "",
+                orderItem : "grade"
             };
         },
         methods: {
@@ -105,7 +106,8 @@
                 let self = this;
                 let param = {
                     grade : self.grade,
-                    deptNo : self.deptNo
+                    deptNo : self.deptNo,
+                    orderItem : self.orderItem
                 };
                 $.ajax({
                     url: "http://localhost:8080/stu/list.dox",

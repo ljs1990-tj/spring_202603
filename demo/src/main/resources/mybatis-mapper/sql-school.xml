@@ -40,6 +40,21 @@
 		<if test="deptNo != '' and deptNo != null">
 			AND S.DEPTNO1 = #{deptNo}
 		</if>
+		
+		<choose>
+			<when test="orderItem == 'name'">
+				ORDER BY NAME
+			</when>
+			<when test="orderItem == 'dept'">
+				ORDER BY D1.DNAME
+			</when>
+			<when test="orderItem == 'grade'">
+				ORDER BY GRADE
+			</when>
+			<otherwise>
+				ORDER BY GRADE
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="selectDeptList" parameterType="hashmap" resultType="com.example.demo.model.Dept">

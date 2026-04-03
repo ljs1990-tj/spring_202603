@@ -31,6 +31,16 @@ public class ProductController {
 		return "/product/order-chart";
 	}
 	
+	@RequestMapping("/product/payment.do") 
+	public String payment(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		return "/product/payment";
+	}
+	
+	@RequestMapping("/product/auth.do") 
+	public String auth(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		return "/product/auth";
+	}
+	
 	@RequestMapping(value = "/product/order.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String order(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
