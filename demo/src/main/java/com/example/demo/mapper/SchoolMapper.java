@@ -14,6 +14,10 @@ import com.example.demo.model.User;
 public interface SchoolMapper {
 	// 교수 목록
 	public List<Professor> selectProfList(HashMap<String, Object> map);
+	
+	// 교수 전체 수
+	public int selectProfCount(HashMap<String, Object> map);
+	
 	// 학생 목록
 	public List<Student> selectStuList(HashMap<String, Object> map);
 	

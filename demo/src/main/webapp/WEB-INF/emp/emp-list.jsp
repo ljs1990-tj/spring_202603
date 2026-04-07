@@ -22,7 +22,7 @@
         tr:nth-child(even){
             background-color: azure;
         }
-        #index {
+        #index, a {
             text-decoration: none;
             color : black;
             padding : 3px;
@@ -38,7 +38,7 @@
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
         <div>
-            <select v-model="pageSize" @click="fnList">
+            <select v-model="pageSize" @change="currentPage = 1; fnList();">
                 <option value="5">5개씩</option>
                 <option value="10">10개씩</option>
                 <option value="20">20개씩</option>
@@ -59,9 +59,11 @@
             </tr>
         </table>
         <div>
+            <a v-if="currentPage != 1" href="javascript:;" @click="currentPage -= 1; fnList();">◀</a>
             <a @click="fnPage(num)" id="index" href="javascript:;" v-for="num in index">
                 <span :class="{active : currentPage == num}">{{num}}</span>
             </a>
+            <a v-if="currentPage != index" href="javascript:;" @click="currentPage += 1; fnList();">▶</a>
         </div>
     </div>
 </body>
@@ -73,9 +75,9 @@
             return {
                 // 변수 - (key : value)
                 list : [],
-                pageSize : 5,
-                index : 1,
-                currentPage : 1
+                pageSize : 5, // 한페이지에 출력할 개수
+                index : 1, // 최대 페이지 수
+                currentPage : 1 // 현재 페이지
             };
         },
         methods: {
@@ -84,7 +86,7 @@
                 let self = this;
                 let param = {
                     pageSize : self.pageSize,
-                    offSet : self.pageSize * (self.currentPage - 1)
+                    offSet : self.pageSize * (self.currentPage - 1) // db에서 건너뛸 개수
                 };
                 $.ajax({
                     url: "http://localhost:8080/emp/list.dox",
@@ -93,6 +95,8 @@
                     data: param,
                     success: function (data) {
                         self.list = data.list;
+
+                        // 최대 페이지 수 구하는 식
                         self.index = Math.ceil(data.totalCount / self.pageSize);
                         console.log(self.index);
                     }

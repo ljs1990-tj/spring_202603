@@ -22,6 +22,16 @@
         tr:nth-child(even){
             background-color: azure;
         }
+        #index, a {
+            text-decoration: none;
+            color : black;
+            padding : 3px;
+            margin : 3px;
+        }
+        #index .active {
+            font-weight: bold;
+            color : blue;
+        }
     </style>
 </head>
 <body>
@@ -43,6 +53,13 @@
                         <option v-for="item in deptList" :value="item.deptNo">{{item.dName}}</option>
                     </select>
                 </label>
+            </div>
+            <div>
+                <select v-model="pageSize" @change="currentPage = 1; fnGetList();">
+                    <option value="5">5개씩</option>
+                    <option value="10">10개씩</option>
+                    <option value="20">20개씩</option>
+                </select>
             </div>
             <div class="table-area">
                 <table>
@@ -66,6 +83,12 @@
                     </tr>
                 </table>
             </div>
+            <div>
+                <a id="index" href="javascript:;" v-for="num in index" @click="currentPage = num; fnGetList();">
+                    <span :class="{active : currentPage == num}">{{num}}</span>
+                </a>
+            </div>
+
             <div class="btn-area">
                 <a href="/prof/add.do"><button>교수추가</button></a>
                 <button @click="fnRemove">삭제</button>
@@ -85,7 +108,11 @@
                 deptList : [],
                 position : "",
                 deptNo : "",
-                selectItem : ""
+                selectItem : "",
+
+                pageSize : 5, // 한페이지에 출력할 개수
+                index : 1, // 최대 페이지 수
+                currentPage : 1 // 현재 페이지
             };
         },
         methods: {
@@ -94,7 +121,9 @@
                 let self = this;
                 let param = {
                     position : self.position,
-                    deptNo : self.deptNo
+                    deptNo : self.deptNo,
+                    pageSize : self.pageSize,
+                    offSet : self.pageSize * (self.currentPage - 1)
                 };
                 $.ajax({
                     url: "http://localhost:8080/prof/list.dox",
@@ -105,6 +134,7 @@
                         console.log(data);
                         self.list = data.list;
                         self.deptList = data.deptList;
+                        self.index = Math.ceil(data.totalCount / self.pageSize);
                     }
                 });
             },
