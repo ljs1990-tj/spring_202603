@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.dao.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -135,10 +137,28 @@ public class UserController {
 
         Map<String, Object> responseBody = response.getBody();
         System.out.println(responseBody);
-
+        resultMap = (HashMap<String, Object>) getUserInfo((String) responseBody.get("access_token"));
+        
 		return new Gson().toJson(resultMap); 
 	}
 	
-	
+	private Map<String, Object> getUserInfo(String accessToken) {
+	    String userInfoUrl = "https://kapi.kakao.com/v2/user/me";
+
+	    RestTemplate restTemplate = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setBearerAuth(accessToken);
+	    HttpEntity<String> entity = new HttpEntity<>(headers);
+
+	    ResponseEntity<String> response = restTemplate.exchange(userInfoUrl, HttpMethod.GET, entity, String.class);
+
+	    try {
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        return objectMapper.readValue(response.getBody(), Map.class);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null; // 예외 발생 시 null 반환
+	    }
+	}
 	
 }
